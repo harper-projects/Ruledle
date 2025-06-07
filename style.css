@@ -52,10 +52,12 @@ button { cursor: pointer; }
 
 #explanationBox {
   display: none;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   background: #eef;
   padding: 1rem;
   border-radius: 8px;
+  width: 200px; /* Adjust width as needed */
+  margin-left: 1rem;
 }
 
 body.dark #explanationBox {
@@ -74,21 +76,7 @@ body.dark #explanationBox {
 }
 
 .topbar button {
-  width: 2.2rem;
-  height: 2.2rem;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  margin-left: 0.5rem;
-  padding: 0;
-  line-height: 1;
-  background-color: #ddd;
-  border: none;
-  transition: background 0.3s;
-}
-
-body.dark .topbar button {
-  background-color: #333;
-  color: #eee;
+  width: auto;
 }
 
 #difficultySelect {
@@ -104,19 +92,13 @@ body.dark .topbar button {
   display: none;
 }
 
-/* Exit button styling */
-#exitBtn {
-  margin-bottom: 1rem;
-  background-color: #ccc;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-weight: bold;
-  width: auto;
-  display: inline-block;
+/* New CSS to position the explanation button and text side by side */
+#explanationContainer {
+  display: flex;
+  align-items: center;
 }
 
-body.dark #exitBtn {
-  background-color: #444;
-  color: #eee;
+#explanationBox {
+  display: none;
+  margin-left: 1rem;
 }
