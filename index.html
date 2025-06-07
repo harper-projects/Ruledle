@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Ruledle</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="topbar">
@@ -12,34 +12,38 @@
   </div>
 
   <div id="difficultySelect">
-    <h2>Choose Difficulty</h2>
+    <h2 id="chooseDifficulty">Choose Difficulty</h2>
     <button class="difficulty-btn" data-difficulty="easy">Easy</button>
     <button class="difficulty-btn" data-difficulty="medium">Medium</button>
     <button class="difficulty-btn" data-difficulty="hard">Hard</button>
-    <button class="difficulty-btn" data-difficulty="mystery">Mystery</button>
+    <button class="difficulty-btn" data-difficulty="mystery">Mystery Mode</button>
   </div>
 
-  <div id="gameSection" style="display: none;">
+  <div id="gameSection" style="display:none;">
     <p><strong>Difficulty:</strong> <span id="difficultyLabel"></span></p>
     <p id="feedback"></p>
     <p><strong>Guesses made:</strong> <span id="guessCount">0</span></p>
     <p><strong>Rules solved:</strong> <span id="winCount">0</span></p>
 
+    <h3>Enter Text:</h3>
     <input id="userInput" placeholder="Try something..." />
-    <button id="submitText">Submit Text</button>
+    <button onclick="checkText()">Submit Text</button>
 
+    <h3>Guess the Rule:</h3>
     <input id="guessInput" placeholder="Your guess..." />
-    <button id="submitGuess">Submit Guess</button>
+    <button onclick="checkGuess()">Submit Guess</button>
 
-    <button id="playAgainBtn" style="display:none;">Play Again</button>
+    <button id="playAgainBtn" onclick="startNewGame()">Play Again</button>
 
     <h3>History:</h3>
-    <ul id="historyList"></ul>
+    <div id="history"><ul id="historyList"></ul></div>
 
     <button id="explanationBtn">How to Play</button>
-    <div id="explanationBox" style="display: none;">
+    <div id="explanationBox">
       <p>You're trying to guess a secret rule based on feedback from what you type.</p>
-      <p>Example: Rule = “No E” — “This is fine” ✅, “Hello” ❌</p>
+      <p>In the first box enter text and see if it follows the rule.</p>
+      <p>Use the second box to guess what the rule is.</p>
+      <p><strong>Example:</strong> Rule: “No letter E” — “This is fun” ✅, “Hello” ❌</p>
     </div>
   </div>
 
