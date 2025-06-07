@@ -4,18 +4,28 @@
   <meta charset="UTF-8">
   <title>Guess the Rule</title>
   <style>
-    body { font-family: sans-serif; padding: 2rem; }
-    input, button { font-size: 1rem; }
+    body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
+    input, button { font-size: 1rem; padding: 0.5rem; margin: 0.25rem 0; width: 100%; box-sizing: border-box; }
+    #feedback, #history { margin-top: 1rem; font-weight: bold; }
+    #history ul { padding-left: 1rem; }
+    #explanationBox { display: none; margin-top: 1rem; background: #f0f0f0; padding: 1rem; border-radius: 8px; }
   </style>
 </head>
 <body>
   <h1>Guess the Rule</h1>
-  <p>Type something and see if you follow the secret rule. You can also guess it using <strong>guess: your guess</strong>.</p>
-  <input id="userInput" placeholder="Type something..." />
-  <button onclick="checkInput()">Submit</button>
-  <p id="feedback"></p>
 
-  <script src="rules.js"></script>
-  <script src="main.js"></script>
-</body>
-</html>
+  <button onclick="toggleExplanation()">❓ What is this?</button>
+  <div id="explanationBox">
+    <p>You are trying to figure out a hidden rule based on your inputs.</p>
+    <p>Enter normal sentences below and see if they follow the rule.</p>
+    <p>Then, try to guess the rule in the guess box.</p>
+    <p><strong>Example:</strong> If the rule is "No letter E", the sentence "This is fun" follows it, but "Hello" breaks it.</p>
+  </div>
+
+  <h3>Enter Text:</h3>
+  <input id="userInput" placeholder="Try something..." />
+  <button onclick="checkText()">Submit Text</button>
+
+  <h3>Guess the Rule:</h3>
+  <input id="guessInput" placeholder="Yo
+
