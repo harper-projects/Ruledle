@@ -44,11 +44,13 @@ function checkGuess() {
   const guess = document.getElementById("guessInput").value.trim().toLowerCase();
   if (!guess) return;
 
-  const actual = currentRule.description.toLowerCase();
   guessCount++;
   guessCountEl.textContent = guessCount;
 
-  if (actual.includes(guess)) {
+  const keywords = currentRule.keywords || [];
+  const matched = keywords.some(keyword => guess.includes(keyword));
+
+  if (matched) {
     feedbackEl.textContent = `🎉 Correct! The rule was: ${currentRule.description}`;
     feedbackEl.className = "flash-success";
     winCount++;
@@ -61,6 +63,7 @@ function checkGuess() {
   document.getElementById("guessInput").value = "";
   document.getElementById("guessInput").focus();
 }
+
 
 function flashFeedback(message, success) {
   feedbackEl.textContent = message;
