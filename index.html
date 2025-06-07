@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guess the Rule</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; }
+    input, button { font-size: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Guess the Rule</h1>
+  <p>Type something and see if you follow the secret rule. You can also guess it using <strong>guess: your guess</strong>.</p>
+  <input id="userInput" placeholder="Type something..." />
+  <button onclick="checkInput()">Submit</button>
+  <p id="feedback"></p>
+
+  <script src="rules.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
