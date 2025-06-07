@@ -74,7 +74,21 @@ body.dark #explanationBox {
 }
 
 .topbar button {
-  width: auto;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+  padding: 0;
+  line-height: 1;
+  background-color: #ddd;
+  border: none;
+  transition: background 0.3s;
+}
+
+body.dark .topbar button {
+  background-color: #333;
+  color: #eee;
 }
 
 #difficultySelect {
@@ -88,4 +102,21 @@ body.dark #explanationBox {
 
 #gameSection {
   display: none;
+}
+
+/* Exit button styling */
+#exitBtn {
+  margin-bottom: 1rem;
+  background-color: #ccc;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  width: auto;
+  display: inline-block;
+}
+
+body.dark #exitBtn {
+  background-color: #444;
+  color: #eee;
 }
