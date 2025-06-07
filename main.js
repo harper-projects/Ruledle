@@ -1,37 +1,71 @@
 let currentRule;
 let guessCount = 0;
 let winCount = 0;
-let currentDifficulty = "easy";
-let isMysteryMode = false;
+let difficulty = 'easy';
 
 const feedbackEl = document.getElementById("feedback");
 const guessCountEl = document.getElementById("guessCount");
 const winCountEl = document.getElementById("winCount");
 const historyList = document.getElementById("historyList");
 const playAgainBtn = document.getElementById("playAgainBtn");
-const difficultyDisplay = document.getElementById("difficultyDisplay");
+const difficultyLabel = document.getElementById("difficultyLabel");
 
-function startNewGame(difficulty) {
-  currentDifficulty = difficulty;
-  isMysteryMode = difficulty === "mystery";
+const RULES = [
+  {
+    description: "Do not use the letter E",
+    check: (text) => !text.toLowerCase().includes("e")
+  },
+  {
+    description: "Only questions are allowed",
+    check: (text) => text.trim().endsWith("?")
+  },
+  {
+    description: "Start every sentence with the letter T",
+    check: (text) => text.trim().toLowerCase().startsWith("t")
+  },
+  {
+    description: "Only use words with 4 or more letters",
+    check: (text) => text.split(" ").every(word => word.length >= 4)
+  },
+  {
+    description: "Only one word allowed",
+    check: (text) => text.trim().split(" ").length === 1
+  }
+];
 
-  const filtered = RULES.filter(rule => rule.difficulty === difficulty || difficulty === 'mystery');
-  currentRule = filtered[Math.floor(Math.random() * filtered.length)];
+function startNewGame(selectedDifficulty) {
+  // Set the difficulty
+  difficulty = selectedDifficulty;
+  difficultyLabel.textContent = difficulty;
+
+  // Hide the difficulty buttons and show the game section
+  document.getElementById("difficultySelect").style.display = "none";
+  document.getElementById("gameSection").style.display = "block";
+
+  // Choose rule based on difficulty
+  let filteredRules;
+  if (difficulty === 'easy') {
+    filteredRules = RULES.filter(rule => rule.description.length < 30);
+  } else if (difficulty === 'medium') {
+    filteredRules = RULES.filter(rule => rule.description.length >= 30 && rule.description.length < 60);
+  } else if (difficulty === 'hard') {
+    filteredRules = RULES.filter(rule => rule.description.length >= 60);
+  } else {
+    filteredRules = RULES; // For mystery mode, just random rule
+  }
+
+  currentRule = filteredRules[Math.floor(Math.random() * filteredRules.length)];
+
+  // Reset guesses and feedback
+  guessCount = 0;
+  winCount = 0;
+  guessCountEl.textContent = guessCount;
+  winCountEl.textContent = winCount;
+  feedbackEl.textContent = "";
 
   historyList.innerHTML = "";
-  feedbackEl.textContent = "";
-  guessCount = 0;
-  guessCountEl.textContent = "0";
-  playAgainBtn.style.display = "none";
-  document.getElementById("userInput").value = "";
-  document.getElementById("guessInput").value = "";
-
-  if (!isMysteryMode) {
-    difficultyDisplay.textContent = `Difficulty: ${currentRule.difficulty.toUpperCase()}`;
-  } else {
-    difficultyDisplay.textContent = "Difficulty: ???";
-  }
   document.getElementById("userInput").focus();
+  playAgainBtn.style.display = "none";
 }
 
 function checkText() {
@@ -51,41 +85,21 @@ function checkText() {
 
 function checkGuess() {
   const guess = document.getElementById("guessInput").value.trim().toLowerCase();
-  if (!guess) return;
-
+  const actual = currentRule.description.toLowerCase();
   guessCount++;
   guessCountEl.textContent = guessCount;
 
-  const keywords = currentRule.keywords || [];
-  const fuse = new Fuse(keywords, {
-    includeScore: true,
-    threshold: 0.4
-  });
-
-  const result = fuse.search(guess);
-
-  if (result.length > 0) {
+  if (actual.includes(guess)) {
     feedbackEl.textContent = `🎉 Correct! The rule was: ${currentRule.description}`;
-    feedbackEl.className = "flash-success";
     winCount++;
     winCountEl.textContent = winCount;
     playAgainBtn.style.display = "block";
-
-    if (isMysteryMode) {
-      difficultyDisplay.textContent = `Difficulty: ${currentRule.difficulty.toUpperCase()}`;
-    }
   } else {
-    flashFeedback("❌ Incorrect guess. Try again!", false);
+    feedbackEl.textContent = "❌ Incorrect guess. Try again!";
   }
 
   document.getElementById("guessInput").value = "";
   document.getElementById("guessInput").focus();
-}
-
-function flashFeedback(text, success = true) {
-  feedbackEl.textContent = text;
-  feedbackEl.className = success ? "flash-success" : "flash-fail";
-  setTimeout(() => feedbackEl.className = "", 300);
 }
 
 function toggleExplanation() {
@@ -93,9 +107,5 @@ function toggleExplanation() {
   box.style.display = box.style.display === "none" ? "block" : "none";
 }
 
-function resetGame() {
-  startNewGame(currentDifficulty);
-}
-
-// Automatically start in easy mode
-startNewGame("easy");
+// Start game on load by default showing difficulty buttons
+startNewGame('easy');
