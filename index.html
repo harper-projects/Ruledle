@@ -1,33 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Ruledle</title>
   <style>
-    body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; background: #f9f9f9; }
-    input, button {
-      font-size: 1rem; padding: 0.5rem; margin: 0.25rem 0; width: 100%; box-sizing: border-box;
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+      background: #f9f9f9;
+      transition: background 0.4s, color 0.4s;
     }
+
+    body.dark {
+      background: #121212;
+      color: #eee;
+    }
+
+    input, button {
+      font-size: 1rem;
+      padding: 0.5rem;
+      margin: 0.25rem 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
     button { cursor: pointer; }
-    #feedback, #history { margin-top: 1rem; font-weight: bold; }
-    #history ul { padding-left: 1rem; list-style-type: none; }
+
+    #feedback {
+      margin-top: 1rem;
+      font-weight: bold;
+      padding: 0.5rem;
+      border-radius: 6px;
+      transition: background-color 0.4s;
+    }
+
+    .flash-success { background-color: #d4edda; }
+    .flash-error { background-color: #f8d7da; }
+
+    #history ul {
+      padding-left: 1rem;
+      list-style: none;
+    }
+
+    #historyList li {
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
     .followed { color: green; }
     .broken { color: red; }
+
     #explanationBox {
-      display: none; margin-top: 1rem; background: #eef; padding: 1rem; border-radius: 8px;
+      display: none;
+      margin-top: 1rem;
+      background: #eef;
+      padding: 1rem;
+      border-radius: 8px;
     }
-    #playAgainBtn { display: none; margin-top: 1rem; }
+
+    body.dark #explanationBox {
+      background: #333;
+    }
+
+    #playAgainBtn {
+      display: none;
+      margin-top: 1rem;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .topbar button {
+      width: auto;
+    }
   </style>
 </head>
 <body>
-  <h1>Ruledle</h1>
+  <div class="topbar">
+    <h1>Ruledle</h1>
+    <button id="darkToggle">🌙 Dark Mode</button>
+  </div>
 
-  <button id="explanationBtn">How to Play?</button>
+  <button id="explanationBtn">How to Play</button>
   <div id="explanationBox">
     <p>You're trying to guess a secret rule based on feedback from what you type.</p>
-    <p>Use the first box to enter any sentence and see if it follows the rule.</p>
+    <p>In the first box enter text and see if it follows the rule.</p>
     <p>Use the second box to guess what the rule is.</p>
-    <p><strong>Example:</strong> Rule: “No letter E” = “This is fun” Rule followed✅, “Hello” Rule Broken❌</p>
+    <p><strong>Example:</strong> Rule: “No letter E” — “This is fun” ✅, “Hello” ❌</p>
   </div>
 
   <h3>Enter Text:</h3>
@@ -38,6 +106,7 @@
   <input id="guessInput" placeholder="Your guess..." />
   <button onclick="checkGuess()">Submit Guess</button>
 
+  <p><strong>Difficulty:</strong> <span id="difficultyLabel"></span></p>
   <p id="feedback"></p>
   <p><strong>Guesses made:</strong> <span id="guessCount">0</span></p>
   <p><strong>Rules solved:</strong> <span id="winCount">0</span></p>
@@ -50,9 +119,27 @@
   <script src="rules.js"></script>
   <script src="main.js"></script>
   <script>
+    // Toggle help box
     document.getElementById("explanationBtn").addEventListener("click", () => {
       const box = document.getElementById("explanationBox");
       box.style.display = box.style.display === "none" ? "block" : "none";
+    });
+
+    // Dark mode toggle
+    document.getElementById("darkToggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener("keydown", e => {
+      if (e.key === "/") {
+        e.preventDefault();
+        document.getElementById("userInput").focus();
+      } else if (e.key === "Enter") {
+        const active = document.activeElement;
+        if (active.id === "userInput") checkText();
+        else if (active.id === "guessInput") checkGuess();
+      }
     });
   </script>
 </body>
