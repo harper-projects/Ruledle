@@ -8,7 +8,10 @@
 <body>
   <div class="topbar">
     <h1>Ruledle</h1>
-    <button id="darkToggle">🌙 Dark Mode</button>
+    <div>
+      <button id="darkToggle" title="Toggle Dark Mode">🌙</button>
+      <button id="explanationBtn" title="How to Play">❓</button>
+    </div>
   </div>
 
   <div id="difficultySelect">
@@ -20,6 +23,7 @@
   </div>
 
   <div id="gameSection" style="display:none;">
+    <button id="exitBtn">Exit to Menu</button>
     <p><strong>Difficulty:</strong> <span id="difficultyLabel"></span></p>
     <p id="feedback"></p>
     <p><strong>Guesses made:</strong> <span id="guessCount">0</span></p>
@@ -38,7 +42,6 @@
     <h3>History:</h3>
     <div id="history"><ul id="historyList"></ul></div>
 
-    <button id="explanationBtn">How to Play</button>
     <div id="explanationBox">
       <p>You're trying to guess a secret rule based on feedback from what you type.</p>
       <p>In the first box enter text and see if it follows the rule.</p>
