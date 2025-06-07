@@ -28,11 +28,11 @@ function startNewGame(selectedDifficulty) {
   // Filter rules based on difficulty
   let filteredRules;
   if (difficulty === 'easy') {
-    filteredRules = RULES.filter(rule => rule.description.length < 30);
+    filteredRules = RULES.filter(rule => rule.difficulty === 'easy');
   } else if (difficulty === 'medium') {
-    filteredRules = RULES.filter(rule => rule.description.length >= 30 && rule.description.length < 60);
+    filteredRules = RULES.filter(rule => rule.difficulty === 'medium');
   } else if (difficulty === 'hard') {
-    filteredRules = RULES.filter(rule => rule.description.length >= 60);
+    filteredRules = RULES.filter(rule => rule.difficulty === 'hard');
   } else {
     filteredRules = RULES; // Mystery mode
   }
@@ -88,10 +88,11 @@ function checkGuess() {
 }
 
 // Add event listeners to difficulty buttons
-document.querySelectorAll('.difficulty-btn').forEach(button => {
+const difficultyButtons = document.querySelectorAll('.difficulty-btn');
+difficultyButtons.forEach(button => {
   button.addEventListener('click', () => {
     const selectedDifficulty = button.getAttribute('data-difficulty');
-    startNewGame(selectedDifficulty);
+    startNewGame(selectedDifficulty); // Trigger game start with selected difficulty
   });
 });
 
