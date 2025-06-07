@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Guess the Rule</title>
+  <title>Ruledle</title>
   <style>
     body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; background: #f9f9f9; }
     input, button {
@@ -20,11 +20,13 @@
   </style>
 </head>
 <body>
-  <h1>Guess the Rule</h1>
+  <h1>Ruledle</h1>
 
-  <button onclick="toggleExplanation()">❓ What is this?</button>
+  <button id="explanationBtn">📘 How to Play</button>
   <div id="explanationBox">
-    <p>You’re trying to figure out a secret rule. Enter normal text and see if it follows the rule. Try to guess the rule using the guess box.</p>
+    <p>You're trying to guess a secret rule based on feedback from what you type.</p>
+    <p><strong>Step 1:</strong> Enter any sentence and see if it follows the rule.</p>
+    <p><strong>Step 2:</strong> Use the second box to guess what the rule is.</p>
     <p><strong>Example:</strong> Rule: “No letter E” — “This is fun” ✅, “Hello” ❌</p>
   </div>
 
@@ -47,7 +49,11 @@
 
   <script src="rules.js"></script>
   <script src="main.js"></script>
+  <script>
+    document.getElementById("explanationBtn").addEventListener("click", () => {
+      const box = document.getElementById("explanationBox");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    });
+  </script>
 </body>
 </html>
-
-
