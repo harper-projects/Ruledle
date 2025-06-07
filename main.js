@@ -35,6 +35,8 @@ const RULES = [
 
 // Start game with difficulty setting
 function startNewGame(selectedDifficulty) {
+  console.log('Starting a new game with difficulty:', selectedDifficulty);
+
   // If no difficulty is passed, set to default (easy)
   if (!selectedDifficulty) selectedDifficulty = 'easy';
 
@@ -108,7 +110,7 @@ function checkGuess() {
   document.getElementById("guessInput").focus();
 }
 
-// Add event listeners to difficulty buttons
+// Add event listeners to difficulty buttons (if using button classes in index.html)
 document.querySelectorAll('.difficulty-btn').forEach(button => {
   button.addEventListener('click', () => {
     const selectedDifficulty = button.getAttribute('data-difficulty');
@@ -132,3 +134,4 @@ document.addEventListener("keydown", e => {
     else if (active.id === "guessInput") checkGuess();
   }
 });
+
