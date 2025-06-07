@@ -82,6 +82,18 @@
     .topbar button {
       width: auto;
     }
+
+    #difficultyButtons {
+      margin: 1rem 0;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    #difficultyButtons button {
+      flex: 1;
+    }
   </style>
 </head>
 <body>
@@ -89,6 +101,15 @@
     <h1>Ruledle</h1>
     <button id="darkToggle">🌙 Dark Mode</button>
   </div>
+
+  <div id="difficultyButtons">
+    <button onclick="startNewGame('easy')">Easy</button>
+    <button onclick="startNewGame('medium')">Medium</button>
+    <button onclick="startNewGame('hard')">Hard</button>
+    <button onclick="startNewGame('mystery')">Mystery Mode</button>
+  </div>
+
+  <p><strong>Difficulty:</strong> <span id="difficultyLabel">???</span></p>
 
   <button id="explanationBtn">How to Play</button>
   <div id="explanationBox">
@@ -106,8 +127,6 @@
   <input id="guessInput" placeholder="Your guess..." />
   <button onclick="checkGuess()">Submit Guess</button>
 
-  <p><strong>Difficulty:</strong> <span id="difficultyLabel"></span></p>
-  <p id="feedback"></p>
   <p><strong>Guesses made:</strong> <span id="guessCount">0</span></p>
   <p><strong>Rules solved:</strong> <span id="winCount">0</span></p>
 
@@ -116,6 +135,7 @@
   <h3>History:</h3>
   <div id="history"><ul id="historyList"></ul></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
   <script src="rules.js"></script>
   <script src="main.js"></script>
   <script>
