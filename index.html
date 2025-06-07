@@ -10,7 +10,16 @@
     <h1>Ruledle</h1>
     <div>
       <button id="darkToggle" title="Toggle Dark Mode">🌙</button>
-      <button id="explanationBtn" title="How to Play">❓</button>
+      <!-- Updated explanation section with a container -->
+      <div id="explanationContainer">
+        <button id="explanationBtn" title="How to Play">❓</button>
+        <div id="explanationBox">
+          <p>You're trying to guess a secret rule based on feedback from what you type.</p>
+          <p>In the first box enter text and see if it follows the rule.</p>
+          <p>Use the second box to guess what the rule is.</p>
+          <p><strong>Example:</strong> Rule: “No letter E” — “This is fun” ✅, “Hello” ❌</p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -41,13 +50,6 @@
 
     <h3>History:</h3>
     <div id="history"><ul id="historyList"></ul></div>
-
-    <div id="explanationBox">
-      <p>You're trying to guess a secret rule based on feedback from what you type.</p>
-      <p>In the first box enter text and see if it follows the rule.</p>
-      <p>Use the second box to guess what the rule is.</p>
-      <p><strong>Example:</strong> Rule: “No letter E” — “This is fun” ✅, “Hello” ❌</p>
-    </div>
   </div>
 
   <script src="rules.js"></script>
