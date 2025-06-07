@@ -33,7 +33,11 @@ const RULES = [
   }
 ];
 
+// Start game with difficulty setting
 function startNewGame(selectedDifficulty) {
+  // If no difficulty is passed, set to default (easy)
+  if (!selectedDifficulty) selectedDifficulty = 'easy';
+
   // Set the difficulty
   difficulty = selectedDifficulty;
   difficultyLabel.textContent = difficulty;
@@ -68,6 +72,7 @@ function startNewGame(selectedDifficulty) {
   playAgainBtn.style.display = "none";
 }
 
+// Check the entered text
 function checkText() {
   const input = document.getElementById("userInput").value.trim();
   const result = currentRule.check(input);
@@ -83,6 +88,7 @@ function checkText() {
   document.getElementById("userInput").focus();
 }
 
+// Check the guess for the rule
 function checkGuess() {
   const guess = document.getElementById("guessInput").value.trim().toLowerCase();
   const actual = currentRule.description.toLowerCase();
@@ -102,10 +108,27 @@ function checkGuess() {
   document.getElementById("guessInput").focus();
 }
 
-function toggleExplanation() {
-  const box = document.getElementById("explanationBox");
-  box.style.display = box.style.display === "none" ? "block" : "none";
-}
+// Add event listeners to difficulty buttons
+document.querySelectorAll('.difficulty-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const selectedDifficulty = button.getAttribute('data-difficulty');
+    startNewGame(selectedDifficulty);
+  });
+});
 
-// Start game on load by default showing difficulty buttons
-startNewGame('easy');
+// Dark mode toggle
+document.getElementById("darkToggle").addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+});
+
+// Keyboard shortcuts
+document.addEventListener("keydown", e => {
+  if (e.key === "/") {
+    e.preventDefault();
+    document.getElementById("userInput").focus();
+  } else if (e.key === "Enter") {
+    const active = document.activeElement;
+    if (active.id === "userInput") checkText();
+    else if (active.id === "guessInput") checkGuess();
+  }
+});
