@@ -9,6 +9,9 @@ const winCountEl = document.getElementById("winCount");
 const historyList = document.getElementById("historyList");
 const playAgainBtn = document.getElementById("playAgainBtn");
 const difficultyLabel = document.getElementById("difficultyLabel");
+const exitBtn = document.getElementById("exitBtn"); // Exit button reference
+const howToPlayBtn = document.getElementById("howToPlayBtn"); // How to Play button reference
+const explanationBox = document.getElementById("explanationBox"); // Explanation box for How to Play
 
 // Start game with difficulty setting
 function startNewGame(selectedDifficulty) {
@@ -51,7 +54,7 @@ function startNewGame(selectedDifficulty) {
   playAgainBtn.style.display = "none";
 }
 
-// Check the entered text
+// Check the entered text (for input)
 function checkText() {
   const input = document.getElementById("userInput").value.trim();
   const result = currentRule.check(input);
@@ -111,4 +114,15 @@ document.addEventListener("keydown", e => {
     if (active.id === "userInput") checkText();
     else if (active.id === "guessInput") checkGuess();
   }
+});
+
+// How to Play Button functionality
+howToPlayBtn.addEventListener("click", () => {
+  explanationBox.style.display = explanationBox.style.display === "none" ? "block" : "none";
+});
+
+// Exit to Menu Button functionality
+exitBtn.addEventListener("click", () => {
+  document.getElementById("gameSection").style.display = "none";
+  document.getElementById("difficultySelect").style.display = "block";
 });
